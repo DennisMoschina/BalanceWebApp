@@ -5,6 +5,9 @@ class ViewGL {
     private readonly renderer: THREE.WebGLRenderer;
     private readonly camera: THREE.PerspectiveCamera;
 
+    readonly sphere: THREE.Mesh;
+    readonly plane: THREE.Mesh;
+
     constructor(canvasRef) {
         this.scene = new THREE.Scene();
         this.renderer = new THREE.WebGLRenderer({
@@ -20,14 +23,14 @@ class ViewGL {
 
         const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
         const material = new THREE.MeshLambertMaterial({color: "white"});
-        const sphere = new THREE.Mesh(sphereGeometry, material);
-        sphere.castShadow = true;
+        this.sphere = new THREE.Mesh(sphereGeometry, material);
+        this.sphere.castShadow = true;
 
         // add a plane which will receive the shadow
         const planeGeometry = new THREE.PlaneGeometry(5, 5, 32, 32);
         const planeMaterial = new THREE.MeshLambertMaterial({color: "green"});
-        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
-        plane.receiveShadow = true;
+        this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        this.plane.receiveShadow = true;
 
         // add a light source so that the shadow can be seen
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
@@ -37,8 +40,8 @@ class ViewGL {
         // add a hemisphere light to simulate the sky
         const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
 
-        this.scene.add(sphere);
-        this.scene.add(plane);
+        this.scene.add(this.sphere);
+        this.scene.add(this.plane);
 
         this.scene.add(directionalLight);
         this.scene.add(hemisphereLight);
@@ -53,13 +56,6 @@ class ViewGL {
     }
 
     // ******************* PUBLIC EVENTS ******************* //
-    updateValue(value) {
-        // Whatever you need to do with React props
-    }
-
-    onMouseMove() {
-        // Mouse moves
-    }
 
     onWindowResize(vpW, vpH) {
         this.camera.aspect = vpW / vpH;
