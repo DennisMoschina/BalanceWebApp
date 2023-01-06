@@ -1,6 +1,7 @@
 import React from 'react';
 import ViewGL from './ViewGL.ts';
 import {World} from "../model/world/World.ts";
+import * as Cannon from 'cannon';
 
 export default class WorldView extends React.Component {
     private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -43,13 +44,33 @@ export default class WorldView extends React.Component {
 
         this.handleResize();
         this.startPhysicsLoop()
+
+        window.addEventListener('mousemove', this.handleMouseMove);
     }
 
     componentWillUnmount() {
         this.stopPhysicsLoop();
+        window.removeEventListener('mousemove', this.handleMouseMove);
     }
 
 
+    handleMouseMove = (e: React.MouseEvent) => {
+        const mouseX = e.clientX - window.innerWidth / 2;
+        const mouseY = -(e.clientY - window.innerHeight / 2);
+        let direction = new Cannon.Vec3(mouseX, mouseY, 0);
+
+        console.log("before", direction);
+
+        //create a vector pointing ninety degrees to the left of the direction vector
+        const left = new Cannon.Vec3(0, 0, 1);
+        direction = left.cross(direction);
+
+        console.log("after", direction);
+
+        const rotation = new Cannon.Quaternion();
+        rotation.setFromAxisAngle(direction, 0.01);
+        this.props.world.plane.quaternion = rotation;
+    };
 
     handleResize = () => {
         this.viewGL.onWindowResize(window.innerWidth, window.innerHeight);

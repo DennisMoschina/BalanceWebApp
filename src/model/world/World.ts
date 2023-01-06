@@ -57,6 +57,5 @@ export class World {
 
     update(timeStep: number = 1 / 60) {
         this.world.step(timeStep);
-        console.log(this.ball.position.z);
     }
 }

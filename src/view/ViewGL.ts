@@ -49,8 +49,6 @@ class ViewGL {
         this.scene.add(this.camera);
 
         this.camera.position.z = 5;
-        this.camera.position.y = -2;
-        this.camera.rotation.x = 0.2;
 
         this.update();
     }
