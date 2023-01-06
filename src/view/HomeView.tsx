@@ -9,7 +9,7 @@ export class HomeView extends Component {
         return (
             <div>
                 <h1>Home</h1>
-                <WorldView/>
+                <WorldView world={world}/>
             </div>
         );
     }

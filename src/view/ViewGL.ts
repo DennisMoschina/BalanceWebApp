@@ -1,0 +1,78 @@
+import * as THREE from 'three';
+
+class ViewGL {
+    private readonly scene: THREE.Scene;
+    private readonly renderer: THREE.WebGLRenderer;
+    private readonly camera: THREE.PerspectiveCamera;
+
+    constructor(canvasRef) {
+        this.scene = new THREE.Scene();
+        this.renderer = new THREE.WebGLRenderer({
+            canvas: canvasRef,
+            antialias: false,
+        });
+
+        //enable shadows
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+
+        const sphereGeometry = new THREE.SphereGeometry(1, 32, 32);
+        const material = new THREE.MeshLambertMaterial({color: "white"});
+        const sphere = new THREE.Mesh(sphereGeometry, material);
+        sphere.castShadow = true;
+
+        // add a plane which will receive the shadow
+        const planeGeometry = new THREE.PlaneGeometry(5, 5, 32, 32);
+        const planeMaterial = new THREE.MeshLambertMaterial({color: "green"});
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.receiveShadow = true;
+
+        // add a light source so that the shadow can be seen
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
+        directionalLight.position.set(0, 0, 5);
+        directionalLight.castShadow = true;
+
+        // add a hemisphere light to simulate the sky
+        const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x000000, 1);
+
+        this.scene.add(sphere);
+        this.scene.add(plane);
+
+        this.scene.add(directionalLight);
+        this.scene.add(hemisphereLight);
+
+        this.scene.add(this.camera);
+
+        this.camera.position.z = 5;
+        this.camera.position.y = -2;
+        this.camera.rotation.x = 0.2;
+
+        this.update();
+    }
+
+    // ******************* PUBLIC EVENTS ******************* //
+    updateValue(value) {
+        // Whatever you need to do with React props
+    }
+
+    onMouseMove() {
+        // Mouse moves
+    }
+
+    onWindowResize(vpW, vpH) {
+        this.camera.aspect = vpW / vpH;
+        this.renderer.setSize(vpW, vpH);
+        this.camera.updateProjectionMatrix();
+    }
+
+    // ******************* RENDER LOOP ******************* //
+    update() {
+        this.renderer.render(this.scene, this.camera);
+
+        requestAnimationFrame(this.update.bind(this));
+    }
+}
+
+export default ViewGL;
