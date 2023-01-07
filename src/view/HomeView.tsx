@@ -1,6 +1,7 @@
 import {Component} from "react";
 import WorldView from "./WorldView.tsx";
 import {World} from "../model/world/World.ts";
+import DeviceOrientationView from "./DeviceOrientationView.tsx";
 
 export class HomeView extends Component {
     render() {
@@ -9,7 +10,7 @@ export class HomeView extends Component {
         return (
             <div>
                 <h1>Home</h1>
-                <WorldView world={world}/>
+                <DeviceOrientationView />
             </div>
         );
     }
