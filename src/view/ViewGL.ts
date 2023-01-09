@@ -27,7 +27,8 @@ class ViewGL {
         this.sphere.castShadow = true;
 
         // add a plane which will receive the shadow
-        const planeGeometry = new THREE.PlaneGeometry(5, 5, 32, 32);
+        // const planeGeometry = new THREE.PlaneGeometry(5, 5, 32, 32);
+        const planeGeometry = new THREE.BoxGeometry(10, 10, 0.1);
         const planeMaterial = new THREE.MeshLambertMaterial({color: "green"});
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
         this.plane.receiveShadow = true;
@@ -48,7 +49,7 @@ class ViewGL {
 
         this.scene.add(this.camera);
 
-        this.camera.position.z = 5;
+        this.camera.position.z = 20;
 
         this.update();
     }

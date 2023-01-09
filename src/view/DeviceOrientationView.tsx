@@ -24,6 +24,7 @@ class DeviceOrientationView extends Component<DeviceOrientationViewProps, Device
             beta: 0,
             gamma: 0,
             error: null,
+            enabled: false,
         };
     }
 
@@ -62,6 +63,7 @@ class DeviceOrientationView extends Component<DeviceOrientationViewProps, Device
                     gamma: event.gamma,
                 });
             });
+            this.setState({ enabled: true });
         } catch (error) {
             this.setState({ error });
         }

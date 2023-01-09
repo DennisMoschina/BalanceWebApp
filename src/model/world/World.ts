@@ -48,7 +48,7 @@ export class World {
 
         this.plane = new Cannon.Body({
             mass: 0,
-            shape: new Cannon.Plane(),
+            shape: new Cannon.Box(new Cannon.Vec3(10, 10, 0.1)),
             position: new Cannon.Vec3(0, 0, 0),
             type: Cannon.Body.STATIC,
             restitution: 0.1

@@ -2,6 +2,7 @@ import React from 'react';
 import ViewGL from './ViewGL.ts';
 import {World} from "../model/world/World.ts";
 import * as Cannon from 'cannon';
+import DeviceOrientationWrapper from "../model/motion/DeviceOrientationWrapper.ts";
 
 export default class WorldView extends React.Component {
     private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
@@ -11,6 +12,8 @@ export default class WorldView extends React.Component {
     private readonly sampleRate = 60;
 
     private physicsLoopInterval: NodeJS.Timer;
+
+    private wrapper: DeviceOrientationWrapper;
 
     constructor(props: { world: World }) {
         super(props);
@@ -43,14 +46,25 @@ export default class WorldView extends React.Component {
         this.viewGL = new ViewGL(canvas, this.props.world);
 
         this.handleResize();
-        this.startPhysicsLoop()
-
-        window.addEventListener('mousemove', this.handleMouseMove);
+        // this.startSimulation()
     }
 
     componentWillUnmount() {
         this.stopPhysicsLoop();
         window.removeEventListener('mousemove', this.handleMouseMove);
+    }
+
+    private startSimulation = () => {
+        this.startPhysicsLoop()
+
+        if (navigator.maxTouchPoints > 0) {
+            this.wrapper = new DeviceOrientationWrapper();
+            this.wrapper.enable(event => {
+                this.rotatePlane(new Cannon.Quaternion(event.beta * Math.PI / 180, event.gamma * Math.PI / 180, 0));
+            });
+        } else {
+            window.addEventListener('mousemove', this.handleMouseMove);
+        }
     }
 
 
@@ -69,8 +83,12 @@ export default class WorldView extends React.Component {
 
         const rotation = new Cannon.Quaternion();
         rotation.setFromAxisAngle(direction, 0.01);
-        this.props.world.plane.quaternion = rotation;
+        this.rotatePlane(rotation);
     };
+
+    private rotatePlane(quaternion: Cannon.Quaternion) {
+        this.props.world.plane.quaternion = quaternion;
+    }
 
     handleResize = () => {
         this.viewGL.onWindowResize(window.innerWidth, window.innerHeight);
@@ -79,6 +97,11 @@ export default class WorldView extends React.Component {
     render() {
         return (
             <div className="canvasContainer">
+                <div>
+                    <button onClick={this.startSimulation}>
+                        {'start Simulation'}
+                    </button>
+                </div>
                 <canvas ref={this.canvasRef} />
             </div>
         );
