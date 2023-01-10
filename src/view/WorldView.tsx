@@ -46,7 +46,8 @@ export default class WorldView extends React.Component {
         this.viewGL = new ViewGL(canvas, this.props.world);
 
         this.handleResize();
-        // this.startSimulation()
+        this.props.world.onFellOff = () => { this.props.world.reset() };
+
     }
 
     componentWillUnmount() {
@@ -60,7 +61,7 @@ export default class WorldView extends React.Component {
         if (navigator.maxTouchPoints > 0) {
             this.wrapper = new DeviceOrientationWrapper();
             this.wrapper.enable(event => {
-                this.rotatePlane(new Cannon.Quaternion(event.beta * Math.PI / 180, event.gamma * Math.PI / 180, 0));
+                this.rotatePlane(new Cannon.Quaternion(event.beta * Math.PI / 360, event.gamma * Math.PI / 360, 0));
             });
         } else {
             window.addEventListener('mousemove', this.handleMouseMove);

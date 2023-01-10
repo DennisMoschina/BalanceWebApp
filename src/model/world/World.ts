@@ -3,6 +3,8 @@ import * as Cannon from 'cannon';
 export class World {
     private readonly _world: Cannon.World;
 
+    onFellOff = () => {};
+
     get world(): Cannon.World {
         return this._world;
     }
@@ -57,5 +59,20 @@ export class World {
 
     update(timeStep: number = 1 / 60) {
         this.world.step(timeStep);
+        this.checkFellOff();
+    }
+
+    reset() {
+        this.ball.position.set(0, 0, 3);
+        this.ball.velocity.set(0, 0, 0);
+    }
+
+    private checkFellOff() {
+        let aabb = this.plane.aabb;
+        let lowestPoint = new Cannon.Vec3(0, 0, aabb.lowerBound.z);
+
+        if (this.ball.position.z < lowestPoint.z - 30) {
+            this.onFellOff()
+        }
     }
 }
