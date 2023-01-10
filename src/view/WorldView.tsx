@@ -3,6 +3,7 @@ import ViewGL from './ViewGL.ts';
 import {World} from "../model/world/World.ts";
 import * as Cannon from 'cannon';
 import DeviceOrientationWrapper from "../model/motion/DeviceOrientationWrapper.ts";
+import Level from "../model/world/Level.ts";
 
 
 export default class WorldView extends React.Component {
@@ -101,5 +102,10 @@ export default class WorldView extends React.Component {
                 <canvas ref={this.canvasRef} />
             </div>
         );
+    }
+
+    setLevel(level: Level) {
+        this.viewGL.renderPlaneWith(level.rendering.geometry, level.rendering.material);
+        this.props.world.plane = level.plane;
     }
 }

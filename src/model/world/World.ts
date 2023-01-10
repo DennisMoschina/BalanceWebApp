@@ -5,6 +5,8 @@ export class World {
 
     onFellOff = () => {};
 
+    onFinished = () => {};
+
     get world(): Cannon.World {
         return this._world;
     }

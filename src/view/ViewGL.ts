@@ -68,6 +68,11 @@ class ViewGL {
 
         requestAnimationFrame(this.update.bind(this));
     }
+
+    renderPlaneWith(geometry: THREE.BufferGeometry, material: THREE.Material) {
+        this.plane.material = material;
+        this.plane.geometry = geometry;
+    }
 }
 
 export default ViewGL;

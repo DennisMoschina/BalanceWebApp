@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {World} from "../model/world/World.ts";
 import WorldView from "./WorldView.tsx";
 import TimerView from "./TimerView.tsx";
+import Level from "../model/world/Level.ts";
+import {levels} from "../model/world/levels.ts";
 
 
 class GameView extends Component {
@@ -58,6 +60,7 @@ class GameView extends Component {
             running: true
         });
         this.worldViewRef.current?.startSimulation();
+        this.resetTimer();
         this.startTimer();
     }
 
@@ -68,7 +71,7 @@ class GameView extends Component {
     }
 
     private startTimer = () => {
-        this.setState({ time: 0 });
+        this.resetTimer();
         this.gameTimer = setInterval(() => {
             this.setState({
                 time: this.state.time + 1
@@ -77,8 +80,16 @@ class GameView extends Component {
         }, 1000);
     }
 
+    private resetTimer = () => {
+        this.setState({ time: 0 });
+    }
+
     private stopTimer = () => {
         clearInterval(this.gameTimer);
+    }
+
+    private setLevel(level: Level) {
+        this.worldViewRef.current?.setLevel(level);
     }
 }
 
