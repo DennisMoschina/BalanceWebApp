@@ -35,7 +35,7 @@ class ViewGL {
 
         // add a light source so that the shadow can be seen
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
-        directionalLight.position.set(0, 0, 5);
+        directionalLight.position.set(0, 0, 20);
         directionalLight.castShadow = true;
 
         // add a hemisphere light to simulate the sky
