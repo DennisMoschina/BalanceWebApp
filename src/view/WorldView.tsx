@@ -4,7 +4,11 @@ import {World} from "../model/world/World.ts";
 import * as Cannon from 'cannon';
 import DeviceOrientationWrapper from "../model/motion/DeviceOrientationWrapper.ts";
 
-export default class WorldView extends React.Component {
+interface WorldViewState {
+    running: boolean;
+}
+
+export default class WorldView extends React.Component<{world: World}, WorldViewState> {
     private readonly canvasRef: React.RefObject<HTMLCanvasElement>;
     private viewGL: ViewGL;
     props: { world: World };
@@ -18,17 +22,19 @@ export default class WorldView extends React.Component {
     constructor(props: { world: World }) {
         super(props);
         this.canvasRef = React.createRef();
+        this.state = { running: false };
     }
 
-    startPhysicsLoop() {
+    private startPhysicsLoop() {
         // run the physics loop at a fixed time step
         this.physicsLoopInterval = setInterval(() => {
             this.updateWorld();
         }, 1000 / this.sampleRate);
     }
 
-    stopPhysicsLoop() {
+    private stopPhysicsLoop() {
         clearInterval(this.physicsLoopInterval);
+        this.setState({ running: false });
     }
 
     updateWorld() {
@@ -47,7 +53,6 @@ export default class WorldView extends React.Component {
 
         this.handleResize();
         this.props.world.onFellOff = () => { this.props.world.reset() };
-
     }
 
     componentWillUnmount() {
@@ -97,14 +102,31 @@ export default class WorldView extends React.Component {
 
     render() {
         return (
-            <div className="canvasContainer">
-                <div>
-                    <button onClick={this.startSimulation}>
-                        {'start Simulation'}
-                    </button>
+            <div style={{
+                position: 'relative',
+            }}>
+                {!this.state.running ?
+                    <div className="overlay" style={{
+                        backgroundColor: 'rgba(0,0,0,0.6)'
+                    }} >
+                        <button className="startButton" onClick={this.start}>
+                            {'Start'}
+                        </button>
+                    </div> :
+                    null
+                }
+                <div className="canvasContainer" >
+                    <canvas ref={this.canvasRef} />
                 </div>
-                <canvas ref={this.canvasRef} />
             </div>
         );
+    }
+
+    start = () => {
+        this.setState({ running: true });
+        //wait a second before starting the simulation
+        setTimeout(() => {
+            this.startSimulation();
+        }, 1000);
     }
 }
