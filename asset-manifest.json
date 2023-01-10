@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/BalanceWebApp/static/css/main.d3f548d9.css",
-    "main.js": "/BalanceWebApp/static/js/main.78b8c240.js",
+    "main.css": "/BalanceWebApp/static/css/main.6d27a9ae.css",
+    "main.js": "/BalanceWebApp/static/js/main.7adc67c1.js",
     "static/js/787.40ad995c.chunk.js": "/BalanceWebApp/static/js/787.40ad995c.chunk.js",
     "index.html": "/BalanceWebApp/index.html",
-    "main.d3f548d9.css.map": "/BalanceWebApp/static/css/main.d3f548d9.css.map",
-    "main.78b8c240.js.map": "/BalanceWebApp/static/js/main.78b8c240.js.map",
+    "main.6d27a9ae.css.map": "/BalanceWebApp/static/css/main.6d27a9ae.css.map",
+    "main.7adc67c1.js.map": "/BalanceWebApp/static/js/main.7adc67c1.js.map",
     "787.40ad995c.chunk.js.map": "/BalanceWebApp/static/js/787.40ad995c.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d3f548d9.css",
-    "static/js/main.78b8c240.js"
+    "static/css/main.6d27a9ae.css",
+    "static/js/main.7adc67c1.js"
   ]
 }
