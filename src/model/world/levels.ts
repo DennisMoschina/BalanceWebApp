@@ -12,6 +12,8 @@ export const levels: Level[] = [
             type: Cannon.Body.STATIC,
             restitution: 0.1
         }),
+        new Cannon.Vec3(-5, 0, 3),
+        new Cannon.Vec3(5, 0, 0),
         {
             geometry: new THREE.BoxGeometry(20, 20, 0.2),
             material: new THREE.MeshLambertMaterial({color: "green"})

@@ -32,6 +32,7 @@ class GameView extends Component {
     }
 
     componentDidMount() {
+        this.setLevel(levels[0]);
     }
 
     render() {

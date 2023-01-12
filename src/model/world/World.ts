@@ -14,6 +14,8 @@ export class World {
     private _plane: Cannon.Body;
     private _ball: Cannon.Body;
     private _finish: Cannon.Body;
+    private _startPosition: Cannon.Vec3;
+    private _finishPosition: Cannon.Vec3;
 
     private finishOnPlaneConstraint: Cannon.LockConstraint;
 
@@ -35,7 +37,18 @@ export class World {
         this.world.addBody(ball);
     }
 
-    set finish(finish: Cannon.Body) {
+    set startPosition(position: Cannon.Vec3) {
+        this._startPosition = position;
+        this.ball.position.copy(position);
+    }
+
+    set finishPosition(position: Cannon.Vec3) {
+        position.z += 2.5
+        this._finishPosition = position;
+        this.finish.position.copy(position);
+    }
+
+    private set finish(finish: Cannon.Body) {
         if (this._finish) {
             this.world.removeBody(this._finish);
         }
@@ -62,6 +75,14 @@ export class World {
 
     get finish(): Cannon.Body {
         return this._finish;
+    }
+
+    get startPosition(): Cannon.Vec3 {
+        return this._startPosition;
+    }
+
+    get finishPosition(): Cannon.Vec3 {
+        return this._finishPosition;
     }
 
     constructor() {
@@ -96,8 +117,10 @@ export class World {
     }
 
     reset() {
-        this.ball.position.set(0, 0, 3);
+        console.log("resetting");
+        this.ball.position.copy(this.startPosition);
         this.ball.velocity.set(0, 0, 0);
+        console.log("ball: ", this.ball.position, "start: ", this.startPosition);
     }
 
     rotate(quaternion: Cannon.Quaternion) {

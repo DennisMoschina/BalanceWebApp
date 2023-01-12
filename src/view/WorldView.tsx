@@ -85,13 +85,9 @@ export default class WorldView extends React.Component {
         const mouseY = -(e.clientY - window.innerHeight / 2);
         let direction = new Cannon.Vec3(mouseX, mouseY, 0);
 
-        console.log("before", direction);
-
         //create a vector pointing ninety degrees to the left of the direction vector
         const left = new Cannon.Vec3(0, 0, 1);
         direction = left.cross(direction);
-
-        console.log("after", direction);
 
         const rotation = new Cannon.Quaternion();
         rotation.setFromAxisAngle(direction, 0.01);
@@ -117,5 +113,7 @@ export default class WorldView extends React.Component {
     setLevel(level: Level) {
         this.viewGL.renderPlaneWith(level.rendering.geometry, level.rendering.material);
         this.props.world.plane = level.plane;
+        this.props.world.startPosition = level.startPosition;
+        this.props.world.finishPosition = level.finishPosition;
     }
 }
