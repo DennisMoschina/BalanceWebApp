@@ -3,7 +3,7 @@ import {World} from "../model/world/World.ts";
 import WorldView from "./WorldView.tsx";
 import TimerView from "./TimerView.tsx";
 import Level from "../model/world/Level.ts";
-import {levels} from "../model/world/levels.ts";
+import {levels, currentLevelIndex} from "../model/world/levels.ts";
 
 
 class GameView extends Component {
@@ -32,7 +32,7 @@ class GameView extends Component {
     }
 
     componentDidMount() {
-        this.setLevel(levels[0]);
+        this.setLevel(levels[currentLevelIndex]);
     }
 
     render() {

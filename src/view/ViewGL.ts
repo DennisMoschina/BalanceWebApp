@@ -3,7 +3,7 @@ import * as THREE from 'three';
 class ViewGL {
     private readonly scene: THREE.Scene;
     private readonly renderer: THREE.WebGLRenderer;
-    private readonly camera: THREE.PerspectiveCamera;
+    readonly camera: THREE.PerspectiveCamera;
 
     readonly sphere: THREE.Mesh;
     readonly plane: THREE.Mesh;
@@ -64,6 +64,7 @@ class ViewGL {
     // ******************* PUBLIC EVENTS ******************* //
 
     onWindowResize(vpW, vpH) {
+        // TODO: update distance of the camera so that the whole scene fits in the viewport
         this.camera.aspect = vpW / vpH;
         this.renderer.setSize(vpW, vpH);
         this.camera.updateProjectionMatrix();
