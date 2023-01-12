@@ -39,6 +39,8 @@ export default class WorldView extends React.Component {
         this.viewGL.plane.quaternion.copy(this.props.world.plane.quaternion);
         this.viewGL.sphere.position.copy(this.props.world.ball.position);
         this.viewGL.sphere.quaternion.copy(this.props.world.ball.quaternion);
+        this.viewGL.finish.position.copy(this.props.world.finish.position);
+        this.viewGL.finish.quaternion.copy(this.props.world.finish.quaternion);
     }
 
     // ******************* COMPONENT LIFECYCLE ******************* //
@@ -69,6 +71,14 @@ export default class WorldView extends React.Component {
         }
     }
 
+    stopSimulation = () => {
+        this.stopPhysicsLoop();
+        if (this.wrapper) {
+            this.wrapper.disable();
+        }
+        window.removeEventListener('mousemove', this.handleMouseMove);
+    }
+
 
     handleMouseMove = (e: React.MouseEvent) => {
         const mouseX = e.clientX - window.innerWidth / 2;
@@ -89,7 +99,7 @@ export default class WorldView extends React.Component {
     };
 
     private rotatePlane(quaternion: Cannon.Quaternion) {
-        this.props.world.plane.quaternion = quaternion;
+        this.props.world.rotate(quaternion);
     }
 
     handleResize = () => {

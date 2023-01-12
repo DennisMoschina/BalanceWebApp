@@ -28,6 +28,7 @@ class GameView extends Component {
         }
         this.world = new World();
         this.world.onFellOff = this.onLose;
+        this.world.onFinished = this.onWin;
     }
 
     componentDidMount() {
@@ -56,6 +57,7 @@ class GameView extends Component {
     }
 
     private startGame = () => {
+        this.world.reset();
         this.setState({
             running: true
         });
@@ -68,6 +70,12 @@ class GameView extends Component {
         this.world.reset();
         this.setState({time: 0});
         this.startTimer();
+    }
+
+    private onWin = () => {
+        this.stopTimer();
+        this.worldViewRef.current?.stopSimulation();
+        this.setState({running: false});
     }
 
     private startTimer = () => {

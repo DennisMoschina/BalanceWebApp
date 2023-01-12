@@ -7,6 +7,7 @@ class ViewGL {
 
     readonly sphere: THREE.Mesh;
     readonly plane: THREE.Mesh;
+    readonly finish: THREE.Mesh;
 
     constructor(canvasRef) {
         this.scene = new THREE.Scene();
@@ -33,6 +34,11 @@ class ViewGL {
         this.plane = new THREE.Mesh(planeGeometry, planeMaterial);
         this.plane.receiveShadow = true;
 
+        const finishGeometry = new THREE.CylinderGeometry(1, 1, 5, 32);
+        finishGeometry.rotateX(Math.PI / 2);
+        const finishMaterial = new THREE.MeshBasicMaterial({color: "cyan"});
+        this.finish = new THREE.Mesh(finishGeometry, finishMaterial);
+
         // add a light source so that the shadow can be seen
         const directionalLight = new THREE.DirectionalLight(0xffffff, 1, 100);
         directionalLight.position.set(0, 0, 20);
@@ -43,6 +49,7 @@ class ViewGL {
 
         this.scene.add(this.sphere);
         this.scene.add(this.plane);
+        this.scene.add(this.finish);
 
         this.scene.add(directionalLight);
         this.scene.add(hemisphereLight);
