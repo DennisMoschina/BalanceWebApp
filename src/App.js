@@ -6,7 +6,7 @@ import {
 } from "react-router-dom";
 import {HomeView} from './view/HomeView.tsx';
 import GameView from "./view/GameView.tsx";
-import LevelSelectorView from "./view/LevelSelectorView";
+import LevelSelectorView from "./view/LevelSelectorView.tsx";
 
 function App() {
   return (
@@ -16,6 +16,7 @@ function App() {
             <Routes>
                 <Route exact path="/" element={<HomeView />} />
                 <Route path="/play" element={<GameView />} />
+                <Route path="/levels" element={<LevelSelectorView />}/>
             </Routes>
         </Router>
       </header>

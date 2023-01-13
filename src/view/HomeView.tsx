@@ -11,6 +11,8 @@ export class HomeView extends Component {
                 </p>
 
                 <Link className="startPlaying" to="/play">Start Playing</Link>
+                <p/>
+                <Link className="viewLevels" to="/levels">View Levels</Link>
 
                 <h2>Controls</h2>
                 <p>

@@ -13,7 +13,6 @@ code {
 }
 
 .startPlaying {
-  background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
@@ -23,6 +22,34 @@ code {
   font-size: 24px;
   border-radius: 12px;
   font-weight: bold;
+}
+
+.startPlaying {
+  background-color: #4CAF50;
+}
+
+.startPlaying:hover {
+  background-color: #3e8e41;
+}
+
+.viewLevels {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 24px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.viewLevels {
+  background-color: #3c8ec6;
+}
+
+.viewLevels:hover {
+  background-color: #3276a4;
 }
 
 .startButton {
@@ -53,4 +80,17 @@ code {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.levelPanel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+
+  background-color: #393e49;
+  /*padding: 10px;*/
+  border-radius: 12px;
 }
