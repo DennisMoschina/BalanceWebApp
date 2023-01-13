@@ -1,6 +1,8 @@
 import * as THREE from 'three';
 
 class ViewGL {
+    private static readonly PLANE_FILLING_RATION = 0.9;
+
     private readonly scene: THREE.Scene;
     private readonly renderer: THREE.WebGLRenderer;
     readonly camera: THREE.PerspectiveCamera;
@@ -64,7 +66,9 @@ class ViewGL {
     // ******************* PUBLIC EVENTS ******************* //
 
     onWindowResize(vpW, vpH) {
-        // TODO: update distance of the camera so that the whole scene fits in the viewport
+
+        this.camera.position.z = this.calculateCameraDistance();
+
         this.camera.aspect = vpW / vpH;
         this.renderer.setSize(vpW, vpH);
         this.camera.updateProjectionMatrix();
@@ -80,6 +84,27 @@ class ViewGL {
     renderPlaneWith(geometry: THREE.BufferGeometry, material: THREE.Material) {
         this.plane.material = material;
         this.plane.geometry = geometry;
+    }
+
+    lookFromAngle(angle: number) {
+        this.camera.position.y = -this.calculateCameraDistance() * Math.cos(angle);
+        this.camera.position.z = this.calculateCameraDistance() * Math.sin(angle);
+        this.camera.lookAt(0, 0, 0);
+    }
+
+    private calculateCameraDistance(): number {
+        this.plane.geometry.computeBoundingBox();
+        const size = this.plane.geometry.boundingBox.getSize(new THREE.Vector3());
+        const width = size.x;
+        const height = size.y;
+
+        const alpha = this.camera.fov / 2;
+        const newRatio = 2 - ViewGL.PLANE_FILLING_RATION;
+        //change the camera's distance so that the whole plane fits in the viewport
+        const widthBasedDistance = newRatio * width / (2 * Math.tan(alpha * Math.PI / 180));
+        const heightBasedDistance = newRatio * height / (2 * Math.tan(alpha * Math.PI / 180));
+
+        return Math.max(widthBasedDistance, heightBasedDistance);
     }
 }
 

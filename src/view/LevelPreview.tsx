@@ -20,8 +20,7 @@ class LevelPreview extends Component {
         const canvas = this.canvasRef.current;
         this.viewGL = new ViewGL(canvas, this.props.level);
 
-        this.viewGL.camera.position.set(0, -10, 10);
-        this.viewGL.camera.rotateX(Math.PI / 4);
+        this.viewGL.lookFromAngle(Math.PI / 4);
 
         this.handleResize();
 
@@ -34,7 +33,8 @@ class LevelPreview extends Component {
     }
 
     handleResize = () => {
-        this.viewGL.onWindowResize(window.innerWidth / 3, window.innerHeight / 3);
+        const size = Math.min(window.innerWidth, window.innerHeight) / 3;
+        this.viewGL.onWindowResize(size, size);
     };
 
     private rotatePlane() {

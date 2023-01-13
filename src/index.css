@@ -97,3 +97,12 @@ code {
 .levelPreview {
   padding: 10px;
 }
+
+.homeButton {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  background-color: #393e49;
+  border-radius: 20px;
+}

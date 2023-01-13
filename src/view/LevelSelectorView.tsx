@@ -36,6 +36,7 @@ class LevelSelectorView extends Component {
     }
 }
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default function (props) {
     const navigate = useNavigate();
     return <LevelSelectorView {...props} navigate={navigate} />;
