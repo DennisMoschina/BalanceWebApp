@@ -4,6 +4,7 @@ import WorldView from "./WorldView.tsx";
 import TimerView from "./TimerView.tsx";
 import Level from "../model/world/Level.ts";
 import {levels, currentLevelIndex} from "../model/world/levels.ts";
+import FinishedView from "./FinishedView.tsx";
 
 
 class GameView extends Component {
@@ -17,6 +18,7 @@ class GameView extends Component {
     state: {
         running: boolean
         time: number
+        finished: boolean
     }
 
     constructor(props: any) {
@@ -24,7 +26,8 @@ class GameView extends Component {
 
         this.state = {
             running: false,
-            time: 0
+            time: 0,
+            finished: false
         }
         this.world = new World();
         this.world.onFellOff = this.onLose;
@@ -38,12 +41,17 @@ class GameView extends Component {
     render() {
         return (
             <div>
-                {!this.state.running ? <div className="overlay" style={{
-                    backgroundColor: "rgba(0,0,0,0.6)",
-                }}>
-                    <button className="startButton" onClick={this.startGame}>
+                {!this.state.running && !this.state.finished ? <div className="gameOverlay" >
+                    <button className="startButton centered" onClick={this.startGame}>
                         Start
                     </button>
+                </div> :
+                this.state.finished ? <div className="gameOverlay" >
+                    <FinishedView className="gameOverlay centered"
+                                  time={this.state.time}
+                                  levelIndex={currentLevelIndex}
+                                  playAgain={this.startGame}
+                    />
                 </div> : null}
                 <div style={{
                     position: "absolute",
@@ -57,10 +65,12 @@ class GameView extends Component {
         );
     }
 
-    private startGame = () => {
+    startGame = () => {
+        this.setLevel(levels[currentLevelIndex]);
         this.world.reset();
         this.setState({
-            running: true
+            running: true,
+            finished: false
         });
         this.worldViewRef.current?.startSimulation();
         this.resetTimer();
@@ -76,7 +86,7 @@ class GameView extends Component {
     private onWin = () => {
         this.stopTimer();
         this.worldViewRef.current?.stopSimulation();
-        this.setState({running: false});
+        this.setState({running: false, finished: true});
     }
 
     private startTimer = () => {
