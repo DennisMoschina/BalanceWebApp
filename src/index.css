@@ -91,6 +91,9 @@ code {
   align-content: center;
 
   background-color: #393e49;
-  /*padding: 10px;*/
-  border-radius: 12px;
+  border-radius: 20px;
+}
+
+.levelPreview {
+  padding: 10px;
 }

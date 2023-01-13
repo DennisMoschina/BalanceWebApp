@@ -34,7 +34,7 @@ class LevelPreview extends Component {
     }
 
     handleResize = () => {
-        this.viewGL.onWindowResize(window.innerWidth, window.innerHeight);
+        this.viewGL.onWindowResize(window.innerWidth / 3, window.innerHeight / 3);
     };
 
     private rotatePlane() {
