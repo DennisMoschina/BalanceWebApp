@@ -16,17 +16,22 @@ class FinishedView extends Component<FinishedProps, {}> {
                 <h2>You finished level {this.props.levelIndex + 1} in {this.props.time} seconds</h2>
                 <div style={{padding: "10px"}}>
                     <button className="startButton" onClick={this.props.playAgain}>
+                        <img className="buttonIcon" src={process.env.PUBLIC_URL + "/gobackward.png"} alt="play" />
                         Play again
                     </button>
                 </div>
                 <div style={{padding: "10px"}}>
-                    <Link className="viewLevels" to="/levels">Select another level</Link>
+                    <Link className="viewLevels" to="/levels">
+                        <img className="buttonIcon" src={process.env.PUBLIC_URL + "/map.fill.png"} alt="map" />
+                        Select another level
+                    </Link>
                 </div>
                 <div style={{padding: "10px"}}>
                     <button className="startButton" onClick={() => {
                         setCurrentLevelIndex(this.props.levelIndex + 1);
                         this.props.playAgain();
                     }} >
+                        <img className="buttonIcon" src={process.env.PUBLIC_URL + "/forward.frame.fill.png"} alt="next" />
                         Next level
                     </button>
                 </div>

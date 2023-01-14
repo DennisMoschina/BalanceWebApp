@@ -10,9 +10,18 @@ export class HomeView extends Component {
                     This is a game about balancing a ball through a parkour course.
                 </p>
 
-                <Link className="startPlaying" to="/play">Start Playing</Link>
-                <p/>
-                <Link className="viewLevels" to="/levels">View Levels</Link>
+                <div style={{margin: "10px"}}>
+                    <Link className="startPlaying" to="/play">
+                        <img className="buttonIcon" src={process.env.PUBLIC_URL + "/play.fill.png"} alt="play" />
+                        Start Playing
+                    </Link>
+                </div>
+                <div style={{margin: "10px"}}>
+                    <Link className="viewLevels" to="/levels">
+                        <img className="buttonIcon" src={process.env.PUBLIC_URL + "/map.fill.png"} alt="map" />
+                        View Levels
+                    </Link>
+                </div>
 
                 <h2>Controls</h2>
                 <p>
