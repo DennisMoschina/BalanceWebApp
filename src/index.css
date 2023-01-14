@@ -28,7 +28,7 @@ code {
   background-color: #4CAF50;
 }
 
-.startPlaying:hover {
+.startPlaying:hover, .startButton:hover {
   background-color: #3e8e41;
 }
 
@@ -100,10 +100,11 @@ code {
 
   background-color: #393e49;
   border-radius: 20px;
+  padding: 10px;
 }
 
 .levelPreview {
-  padding: 10px;
+  margin: 10px;
 }
 
 .homeButton {
@@ -114,4 +115,5 @@ code {
   background-color: #393e49;
   padding: 10px;
   border-radius: 20px;
+  margin: 10px;
 }
