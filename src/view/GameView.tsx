@@ -43,7 +43,7 @@ class GameView extends Component {
             <div>
                 {!this.state.running && !this.state.finished ? <div className="gameOverlay" >
                     <button className="startButton centered" onClick={this.startGame}>
-                        <img style={{marginRight: "10px"}} src={process.env.PUBLIC_URL + "/play.fill.png"} alt="play" />
+                        <img className="buttonIcon" src={process.env.PUBLIC_URL + "/play.fill.png"} alt="play" />
                         Start
                     </button>
                 </div> :
