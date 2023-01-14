@@ -99,9 +99,11 @@ class ViewGL {
         const height = size.y;
 
         const alpha = this.camera.fov / 2;
+        const aspectRatio = this.camera.aspect;
+        const beta = aspectRatio * alpha;
         const newRatio = 2 - ViewGL.PLANE_FILLING_RATION;
         //change the camera's distance so that the whole plane fits in the viewport
-        const widthBasedDistance = newRatio * width / (2 * Math.tan(alpha * Math.PI / 180));
+        const widthBasedDistance = newRatio * width / (2 * Math.tan(beta * Math.PI / 180));
         const heightBasedDistance = newRatio * height / (2 * Math.tan(alpha * Math.PI / 180));
 
         return Math.max(widthBasedDistance, heightBasedDistance);
