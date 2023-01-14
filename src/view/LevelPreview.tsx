@@ -19,6 +19,7 @@ class LevelPreview extends Component {
         // Get canvas, pass to custom class
         const canvas = this.canvasRef.current;
         this.viewGL = new ViewGL(canvas, this.props.level);
+        this.viewGL.renderPlaneWith(this.props.level.rendering.geometry, this.props.level.rendering.material);
 
         this.viewGL.lookFromAngle(Math.PI / 4);
 
