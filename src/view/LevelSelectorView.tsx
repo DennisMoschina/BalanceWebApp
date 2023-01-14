@@ -25,7 +25,7 @@ class LevelSelectorView extends Component {
                                     setCurrentLevelIndex(index);
                                     navigate("/play");
                                 }}>
-                                    <img style={{marginRight: "10px"}} src={process.env.PUBLIC_URL + "/play.fill.png"} alt="play" />
+                                    <img className="buttonIcon" src={process.env.PUBLIC_URL + "/play.fill.png"} alt="play" />
                                     Select
                                 </button>
                             </div>

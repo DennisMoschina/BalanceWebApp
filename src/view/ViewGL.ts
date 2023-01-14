@@ -84,6 +84,7 @@ class ViewGL {
     renderPlaneWith(geometry: THREE.BufferGeometry, material: THREE.Material) {
         this.plane.material = material;
         this.plane.geometry = geometry;
+        this.camera.position.z = this.calculateCameraDistance();
     }
 
     lookFromAngle(angle: number) {
